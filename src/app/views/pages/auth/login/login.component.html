@@ -8,14 +8,14 @@
         <div class="col-md-8 ps-md-0">
           <div class="auth-form-wrapper px-4 py-5">
             <a routerLink="." class="penc-logo d-block mb-2">Penc<span>Office</span></a>
-            <form class="forms-sample">
+            <form #f="ngForm" (ngSubmit)="f.valid && onLoggedin(f.value)" class="forms-sample">
               <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="inputEmail" placeholder="mail@mail.sn" value="admin@demo.sn">
+                <label for="inputEmail1" class="form-label">Email address</label>
+                <input type="email" #email ngModel name="email"  class="form-control" id="inputEmail" placeholder="mail@mail.sn" value="admin@demo.sn">
               </div>
               <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" autocomplete="current-password" placeholder="Password" value="12345678">
+                <label for="inputPassword1" class="form-label">Mot de passe</label>
+                <input type="password" #password ngModel name="password" class="form-control" id="exampleInputPassword1" autocomplete="current-password" placeholder="Password">
               </div>
               <div class="form-check mb-3">
                 <input type="checkbox" class="form-check-input" id="authCheck">
@@ -24,7 +24,7 @@
                 </label>
               </div>
               <div>
-                <button type="submit" class="btn btn-primary me-2 mb-2 mb-md-0" (click)="onLoggedin($event)">connexion</button>
+                <button type="submit" class="btn btn-primary me-2 mb-2 mb-md-0">connexion</button>
               </div>
             </form>
           </div>

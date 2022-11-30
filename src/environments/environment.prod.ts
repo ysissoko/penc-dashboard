@@ -1,4 +1,5 @@
 export const environment = {
+  BASE_URL: "https://pencum-sales-backend.mansadev.com",
   firebase: {
     projectId: 'pencc-17e3d',
     appId: '1:487183051127:web:96c9339838a62060441972',

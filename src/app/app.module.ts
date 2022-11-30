@@ -5,17 +5,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 
 import { LayoutModule } from './views/layout/layout.module';
-import { AuthGuard } from './core/guard/auth.guard';
 
 import { AppComponent } from './app.component';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../environments/environment';
-import { provideAuth,getAuth } from '@angular/fire/auth';
-import { provideDatabase,getDatabase } from '@angular/fire/database';
-import { provideMessaging,getMessaging } from '@angular/fire/messaging';
-
-
+import {NgxPermissionsModule} from "ngx-permissions";
+import { HttpClientModule } from '@angular/common/http';
+import {AngularFireAuthModule} from "@angular/fire/compat/auth";
+import { AuthService } from './shared/services/auth/auth.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,17 +21,15 @@ import { provideMessaging,getMessaging } from '@angular/fire/messaging';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
+    NgxPermissionsModule.forRoot(),
+    HttpClientModule,
     LayoutModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideDatabase(() => getDatabase()),
-    provideMessaging(() => getMessaging()),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AppRoutingModule
   ],
-  providers: [
-    AuthGuard
-  ],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5989,6 +5989,13 @@ ngx-perfect-scrollbar@^10.1.1:
     resize-observer-polyfill "^1.5.0"
     tslib "^2.0.0"
 
+ngx-permissions@13.0.0:
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-permissions/-/ngx-permissions-13.0.0.tgz#0fc6e782e70bf0caaa964dfc8a47d05a91aae101"
+  integrity sha512-7C2WuI1IKi6xmtJY0FqIwzKeHXJ//foNraw5/ADqCXW8B+Wj5JsLYbTGkEPET9zcs7iG+6ZTTOfKRGlKk8q9hQ==
+  dependencies:
+    tslib "^2.1.0"
+
 ngx-sortablejs@^11.1.0:
   version "11.1.0"
   resolved "https://registry.yarnpkg.com/ngx-sortablejs/-/ngx-sortablejs-11.1.0.tgz#14e50c48db908c1cb4b37722b28c2d3867c6140a"

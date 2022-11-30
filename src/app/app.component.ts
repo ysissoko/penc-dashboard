@@ -8,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'penc-angular';
 
+  constructor(){
+    
+  }
   ngOnInit(): void {}
 
 }
