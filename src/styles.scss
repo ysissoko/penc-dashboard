@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+// Global icon font
+@import "./assets/fonts/feather/style.css";
+
+
+// // 3rd party plugins
+@import "~@mdi/font/css/materialdesignicons.min.css";
+@import '~perfect-scrollbar/css/perfect-scrollbar.css';
+@import '~animate.css/animate.min.css';
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~metismenujs/scss/metismenujs";
+@import '~angular-archwizard/styles/archwizard.css';
+@import '~simple-datatables/dist/style.css';
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/bootstrap.css';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+
+
+// penc styles for LTR
+@import "./assets/scss/style";
+
+
+// penc styles For RTL
+// @import "./assets/scss/style.rtl.css";

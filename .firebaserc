@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "pencc-17e3d": {
+      "hosting": {
+        "penc-angular": [
+          "pencoffice"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "pencc-17e3d"
+  }
+}
