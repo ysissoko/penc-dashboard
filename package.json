@@ -41,6 +41,7 @@
     "ngx-mask": "^13.1.10",
     "ngx-perfect-scrollbar": "^10.1.1",
     "ngx-sortablejs": "^11.1.0",
+    "ngx-toastr": "14.3.0",
     "rxjs": "~7.5.0",
     "simple-datatables": "^3.2.0",
     "sortablejs": "^1.15.0",

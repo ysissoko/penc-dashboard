@@ -14,7 +14,8 @@ import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideMessaging,getMessaging } from '@angular/fire/messaging';
-
+import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,8 @@ import { provideMessaging,getMessaging } from '@angular/fire/messaging';
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
+    HttpClientModule,
+    ToastrModule.forRoot(environment.toastrConfig),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),

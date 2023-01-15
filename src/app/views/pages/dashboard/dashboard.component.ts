@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbCalendar, NgbToast } from '@ng-bootstrap/ng-bootstrap';
 import { ColumnMode } from '@swimlane/ngx-datatable';
+import { ToastrService } from 'ngx-toastr';
+import { ShopCategoryService } from 'src/app/services/shop/shop-category.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,10 +13,12 @@ import { ColumnMode } from '@swimlane/ngx-datatable';
 })
 export class DashboardComponent implements OnInit {
 
-  rows = [];
+  payments:any[] = [];
+  categories:any[] = [];
   loadingIndicator = true;
   reorderable = true;
   ColumnMode = ColumnMode;
+  editing = {} as any;
   /**
    * Apex chart
    */
@@ -47,7 +51,7 @@ export class DashboardComponent implements OnInit {
    */
   currentDate: NgbDateStruct;
   
-  constructor(private calendar: NgbCalendar) {}
+  constructor(private calendar: NgbCalendar, private _catService:ShopCategoryService, private _toastr:ToastrService) {}
 
   ngOnInit(): void {
     this.currentDate = this.calendar.getToday();
@@ -64,6 +68,46 @@ export class DashboardComponent implements OnInit {
       this.addRtlOptions();
     }
 
+    this._catService.all().subscribe((res:any)=>{
+      this.categories = res;
+    })
+
+  }
+
+  updateValue(event:any, cell:string, rowIndex:number) {
+    
+    if(event.target.value == this.categories[rowIndex][cell]){
+      this.editing[rowIndex + '-' + cell] = false;
+      return;
+    }
+
+    const initialValue = this.categories[rowIndex][cell];
+    this.categories[rowIndex][cell] = event.target.value;
+    this._catService.update(this.categories[rowIndex].id,this.categories[rowIndex]).subscribe({
+      next: (res:any)=>{
+        this._toastr.success("Category updated successfully");
+        console.log('inline editing rowIndex', rowIndex);
+        this.editing[rowIndex + '-' + cell] = false;
+        this.categories = [...this.categories];
+        console.log('UPDATED!', this.categories[rowIndex][cell]);
+      },
+      error: (err:any)=>{
+        this.categories[rowIndex][cell] = initialValue;
+        this._toastr.error("Error updating category");
+      }
+    })
+  }
+
+  addCategory(formData:{name:string}){
+    this._catService.add(formData).subscribe({
+      next: (res:any)=>{
+        this.categories = [...this.categories, res];
+        this._toastr.success("Category added successfully");
+      },
+      error: (err:any)=>{
+        this._toastr.error("Error adding category");
+      }
+    })
   }
 
   fetch(cb: any) {
