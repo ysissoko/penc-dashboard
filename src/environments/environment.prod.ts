@@ -8,5 +8,10 @@ export const environment = {
     authDomain: 'pencc-17e3d.firebaseapp.com',
     messagingSenderId: '487183051127',
   },
+  toastrConfig: {
+    timeOut: 1000,
+    positionClass: 'toast-bottom-center',
+    preventDuplicates: true,
+  },
   production: true
 };
