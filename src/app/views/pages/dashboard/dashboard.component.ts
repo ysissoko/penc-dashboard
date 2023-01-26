@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { ColumnMode } from '@swimlane/ngx-datatable';
+import { ColumnMode, TableColumn } from '@swimlane/ngx-datatable';
 import { ToastrService } from 'ngx-toastr';
-import { ShopCategoryService } from 'src/app/services/shop/shop-category.service';
+import { ProductCategoryService } from '../../../services/product-category/product-category.service';
 import { ZoneService } from '../../../services/zone/zone.service';
+import { JsonFormData } from '../../../shared/components/json-form/json-form.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -53,7 +53,28 @@ export class DashboardComponent implements OnInit {
    */
   currentDate: NgbDateStruct;
 
-  constructor(private calendar: NgbCalendar, private _catService: ShopCategoryService, private _zoneService: ZoneService, private _toastr: ToastrService) { }
+  jsonFormData: JsonFormData = {
+    controls: [{
+      name: "name",
+      label: "Nom de la catégorie",
+      value: "",
+      type: "text",
+      placeholder: "Entrer le nom de la catégorie",
+      validators: [{ name: 'required' }]
+    }],
+    currentId: null
+  }
+
+  columns: TableColumn[] = [
+    {
+      name: "Id",
+      prop: "id"
+    }, {
+      name: "Nom",
+      prop: "name"
+    }]
+
+  constructor(private calendar: NgbCalendar, private _zoneService: ZoneService, private _toastr: ToastrService, public service: ProductCategoryService) { }
 
   ngOnInit(): void {
     this.currentDate = this.calendar.getToday();
@@ -70,45 +91,7 @@ export class DashboardComponent implements OnInit {
       this.addRtlOptions();
     }
 
-    this._catService.all().subscribe((categories: any[]) => this.categories = categories);
     this._zoneService.all().subscribe((zones: any[]) => this.zones = zones);
-  }
-
-  updateValue(event: any, cell: string, rowIndex: number) {
-
-    if (event.target.value == this.categories[rowIndex][cell]) {
-      this.editing[rowIndex + '-' + cell] = false;
-      return;
-    }
-
-    const initialValue = this.categories[rowIndex][cell];
-    this.categories[rowIndex][cell] = event.target.value;
-    this._catService.update(this.categories[rowIndex].id, this.categories[rowIndex]).subscribe({
-      next: (res: any) => {
-        this._toastr.success("Category updated successfully");
-        console.log('inline editing rowIndex', rowIndex);
-        this.editing[rowIndex + '-' + cell] = false;
-        this.categories = [...this.categories];
-        console.log('UPDATED!', this.categories[rowIndex][cell]);
-      },
-      error: (err: any) => {
-        this.categories[rowIndex][cell] = initialValue;
-        this._toastr.error("Error updating category");
-      }
-    })
-  }
-
-  addCategory(formData: { name: string }) {
-    console.log(formData)
-    this._catService.add(formData).subscribe({
-      next: (res: any) => {
-        this.categories = [...this.categories, res];
-        this._toastr.success("Category added successfully");
-      },
-      error: (err: any) => {
-        this._toastr.error("Error adding category");
-      }
-    })
   }
 
   addZone(formData: { name: string }) {

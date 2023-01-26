@@ -1,0 +1,41 @@
+<div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+  <div>
+    <h4 class="mb-3 mb-md-0">{{pageTitle}}</h4>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <button type="button" class="btn btn-primary" (click)="openModalAddNew(content)">Ajouter</button>
+        <div class="table-responsive">
+          <div class="table-responsive">
+            <ngx-datatable class="bootstrap" [rows]="rows$ | async" [loadingIndicator]="loadingIndicator"
+              [columnMode]="ColumnMode.force" [footerHeight]="50" [limit]="10" rowHeight="auto">
+
+              <ngx-datatable-column *ngFor="let column of columns" name="{{column.name}}"
+                prop="{{column.prop}}"></ngx-datatable-column>
+              <ngx-datatable-column [sortable]="false">
+                <ng-template #buttonsTemplate let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <button class="btn btn-primary" (click)='openModalUpdate(content, row)'><i
+                      class="rb-ic rb-ic-add-frame"></i></button>
+                  <button class="btn btn-danger" (click)='remove(row)'><i class="rb-ic rb-ic-add-frame"></i></button>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> <!-- row -->
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{modalTitle}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <app-json-form [jsonFormData]="jsonFormData" (create)="add($event)" (update)="update($event)"></app-json-form>
+  </div>
+</ng-template>

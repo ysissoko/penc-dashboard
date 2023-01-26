@@ -146,40 +146,6 @@
     </div>
   </div>
 </div> <!-- row -->
-<div class="row">
-  <div class="col-12 stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <div class="d-flex justify-content-between align-items-baseline mb-2">
-          <h6 class="card-title mb-0">Catégories</h6>
-          <form #f="ngForm" class="d-flex flex-row" (ngSubmit)="f.valid && addCategory(f.value)">
-            <input #name="ngModel" ngModel type="text" name="name" class="form-control mx-2"
-              placeholder="Nom de la catégorie" />
-            <input type="submit" value="Ajouter" class="btn btn-primary" />
-          </form>
-        </div>
-        <div class="table-responsive">
-          <div class="table-responsive">
-            <ngx-datatable class="bootstrap" [rows]="categories" [loadingIndicator]="loadingIndicator"
-              [columnMode]="ColumnMode.force" [footerHeight]="50" [limit]="10" rowHeight="auto">
-              <ngx-datatable-column name="id"></ngx-datatable-column>
-              <ngx-datatable-column name="name">
-                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-                  <span title="Double click to edit" (dblclick)="editing[rowIndex + '-name'] = true"
-                    *ngIf="!editing[rowIndex + '-name']">
-                    {{ value }}
-                  </span>
-                  <input autofocus (blur)="updateValue($event, 'name', rowIndex)" *ngIf="editing[rowIndex + '-name']"
-                    type="text" [value]="value" />
-                </ng-template>
-              </ngx-datatable-column>
-            </ngx-datatable>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> <!-- row -->
 <div class="row my-3">
   <div class="col-12 stretch-card">
     <div class="card">
@@ -204,37 +170,3 @@
     </div>
   </div>
 </div>
-<div class="row">
-  <div class="col-12 stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <div class="d-flex justify-content-between align-items-baseline mb-2">
-          <h6 class="card-title mb-0">Zones</h6>
-          <form #f2="ngForm" class="d-flex flex-row" (ngSubmit)="f2.valid && addZone(f2.value)">
-            <input #name="ngModel" ngModel type="text" name="name" class="form-control mx-2"
-              placeholder="Nom de la zone" />
-            <input type="submit" value="Ajouter" class="btn btn-primary" />
-          </form>
-        </div>
-        <div class="table-responsive">
-          <div class="table-responsive">
-            <ngx-datatable class="bootstrap" [rows]="zones" [loadingIndicator]="loadingIndicator"
-              [columnMode]="ColumnMode.force" [footerHeight]="50" [limit]="10" rowHeight="auto">
-              <ngx-datatable-column name="id"></ngx-datatable-column>
-              <ngx-datatable-column name="name">
-                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-                  <span title="Double click to edit" (dblclick)="editing[rowIndex + '-name'] = true"
-                    *ngIf="!editing[rowIndex + '-name']">
-                    {{ value }}
-                  </span>
-                  <input autofocus *ngIf="editing[rowIndex + '-name']"
-                    type="text" [value]="value" />
-                </ng-template>
-              </ngx-datatable-column>
-            </ngx-datatable>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> <!-- row -->

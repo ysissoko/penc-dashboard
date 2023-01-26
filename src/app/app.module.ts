@@ -30,7 +30,7 @@ import { ErrorPageComponent } from './views/pages/error-page/error-page.componen
     AppRoutingModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
-    })
+    }),
   ],
   providers: [AuthService, {
     provide: HTTP_INTERCEPTORS,

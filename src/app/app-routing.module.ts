@@ -1,32 +1,46 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { BaseComponent } from './views/layout/base/base.component';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
 
-import { AngularFireAuthGuard,redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
+import { AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
 
 const redirectLoggedInToDashboard = () => redirectLoggedInTo(['dashboard']);
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/auth/login']);
 
 const routes: Routes = [
-  { path:'auth',
+  {
+    path: 'auth',
     canActivate: [AngularFireAuthGuard],
-    data : { authGuardPipe : redirectLoggedInToDashboard },
-    loadChildren: () => import('./views/pages/auth/auth.module').then(m => m.AuthModule) },
+    data: { authGuardPipe: redirectLoggedInToDashboard },
+    loadChildren: () => import('./views/pages/auth/auth.module').then(m => m.AuthModule)
+  },
   {
     path: '',
     component: BaseComponent,
     canActivate: [AngularFireAuthGuard],
-    data : { authGuardPipe : redirectUnauthorizedToLogin },
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
     children: [
       {
         path: 'dashboard',
         loadChildren: () => import('./views/pages/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, 
+      {
+        path: 'categories',
+        loadChildren: () => import('./views/pages/product-category-page/product-category-page.module').then(m => m.ProductCategoryPageModule)
+      },
+      {
+        path: 'subcategories',
+        loadChildren: () => import('./views/pages/product-subcategory-page/product-subcategory-page.module').then(m => m.ProductSubCategoryPageModule)
+      },
+      {
+        path: 'zones',
+        loadChildren: () => import('./views/pages/zones-page/zones-page.module').then(m => m.ZonesPageModule)
+      },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ]
   },
-  { 
+  {
     path: 'error',
     component: ErrorPageComponent,
     data: {
@@ -43,7 +57,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top' }) ],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -5,9 +5,8 @@ import { BaseService } from '../base/base.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ShopCategoryService extends BaseService{
-
-  constructor(_http:HttpClient) { 
-    super(_http,"shop-category")
+export class ProductCategoryService extends BaseService {
+  constructor(_http: HttpClient) {
+    super(_http, "product-category")
   }
 }

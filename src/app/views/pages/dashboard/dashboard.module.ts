@@ -11,6 +11,7 @@ import { NgApexchartsModule } from "ng-apexcharts";
 
 import { DashboardComponent } from './dashboard.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { TablePageModule } from '../table/table-page.module';
 
 const routes: Routes = [
   {
