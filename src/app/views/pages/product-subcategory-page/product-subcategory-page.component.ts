@@ -11,7 +11,10 @@ import { JsonFormData } from '../../../shared/components/json-form/json-form.com
 })
 export class ProductSubCategoryPageComponent implements OnInit {
 
-  jsonFormData: JsonFormData;
+  jsonFormData: JsonFormData = {
+    controls: [],
+    currentId: null
+  };
 
   columns: TableColumn[] = [
     {
