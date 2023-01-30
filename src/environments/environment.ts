@@ -3,8 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  BASE_URL: "https://pencum-sales-backend.mansadev.com",
-  //BASE_URL: "http://localhost:3001",
+  BASE_URL: "http://localhost:3001",
   firebase: {
     projectId: 'pencc-17e3d',
     appId: '1:487183051127:web:96c9339838a62060441972',

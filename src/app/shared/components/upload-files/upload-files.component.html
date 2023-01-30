@@ -1,0 +1,7 @@
+<div class="form-group upload-form">
+  <p>Choisir une image à télécharger</p>
+  <div class="upload-input-form">
+    <img *ngIf="previewUrl" alt="preview" [src]="previewUrl" width="60" height="60" />
+    <input type="file" class="form-control" name="image" (change)="selectFile($event)">
+  </div>
+</div>

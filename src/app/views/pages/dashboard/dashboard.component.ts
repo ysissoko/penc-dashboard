@@ -53,27 +53,6 @@ export class DashboardComponent implements OnInit {
    */
   currentDate: NgbDateStruct;
 
-  jsonFormData: JsonFormData = {
-    controls: [{
-      name: "name",
-      label: "Nom de la catégorie",
-      value: "",
-      type: "text",
-      placeholder: "Entrer le nom de la catégorie",
-      validators: [{ name: 'required' }]
-    }],
-    currentId: null
-  }
-
-  columns: TableColumn[] = [
-    {
-      name: "Id",
-      prop: "id"
-    }, {
-      name: "Nom",
-      prop: "name"
-    }]
-
   constructor(private calendar: NgbCalendar, private _zoneService: ZoneService, private _toastr: ToastrService, public service: ProductCategoryService) { }
 
   ngOnInit(): void {

@@ -1,14 +1,20 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <ng-container *ngFor="let control of jsonFormData.controls" [ngSwitch]="control.type">
-        <select [formControlName]="control.name" *ngSwitchCase="'select'" aria-label="control.label" class="form-select">
+        <select [formControlName]="control.name" *ngSwitchCase="'select'" aria-label="control.label"
+            class="form-select">
             <option *ngFor="let option of control.options" [value]="option.value">{{option.name}}</option>
         </select>
+
+        <app-upload-files *ngSwitchCase="'file'" (uploadEvent)="onUpload($event, control.name)"
+            [upload_url]="control.uploadUrl ?? ''" [previewUrl]="getImgPreview(control.name)"></app-upload-files>
+
         <div class="form-group" *ngSwitchDefault>
             <label *ngIf="control.label" [for]="control.name">{{control.label}}</label>
             <input [type]="control.type" class="form-control" [formControlName]="control.name" [value]="control.value"
                 [id]="control.name" [placeholder]="control.placeholder ?? ''">
         </div>
     </ng-container>
-    
-    <input type="submit" [disabled]="form.invalid" [value]="jsonFormData.currentId ? 'Mettre à jour' : 'Ajouter'" class="btn btn-primary"/>
+
+    <input type="submit" [disabled]="form.invalid" [value]="jsonFormData.currentId ? 'Mettre à jour' : 'Ajouter'"
+        class="btn btn-primary" />
 </form>
