@@ -1,20 +1,23 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { environment } from '../../../../environments/environment';
 
 interface JsonFormValidator {
-    name: string,
-    value?: any;
+    name: string
+    value?: any
 }
 
 export interface JsonFormControl {
-    name: string;
-    label?: string;
-    value: string;
-    type: string;
-    placeholder?: string;
-    validators: JsonFormValidator[];
+    name: string
+    label?: string
+    value: string
+    type: string
+    placeholder?: string
+    validators: JsonFormValidator[]
     options?: [{ value: string, name: string }]
+    uploadUrl?: string
 }
+
 export interface JsonFormData {
     controls: JsonFormControl[];
     currentId: number | null;
@@ -29,15 +32,16 @@ export class JsonFormComponent implements OnChanges {
     @Input() jsonFormData: JsonFormData;
     @Output() create = new EventEmitter<any>();
     @Output() update = new EventEmitter<any>();
+    @Output() upload = new EventEmitter<any>();
 
     form: FormGroup = new FormGroup({});
+    private previews: any = {};
 
     ngOnChanges(changes: SimpleChanges) {
         this.initFormGroup();
     }
 
     initFormGroup(): void {
-        console.log(this.jsonFormData.controls)
         this.jsonFormData.controls.forEach((control: JsonFormControl) => {
             this.form.addControl(control.name, new FormControl(control.value, control.validators.map((validator: JsonFormValidator) => this.createValidator(validator))))
         });
@@ -60,6 +64,13 @@ export class JsonFormComponent implements OnChanges {
                 break;
         }
     }
+
+    onUpload(filename: string, control_name: string) {
+        this.form.get(control_name)?.setValue(filename);
+        this.previews[control_name] = `${environment.BASE_URL}/uploads/${filename}`;
+    }
+
+    getImgPreview(control_name: string) { return this.previews[control_name]; }
 
     onSubmit() {
         const { currentId } = this.jsonFormData;

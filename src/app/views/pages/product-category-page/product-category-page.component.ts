@@ -11,14 +11,24 @@ import { JsonFormData } from '../../../shared/components/json-form/json-form.com
 export class ProductCategoryPageComponent {
 
   jsonFormData: JsonFormData = {
-    controls: [{
-      name: "name",
-      label: "Nom de la catégorie",
-      value: "",
-      type: "text",
-      placeholder: "Entrer le nom de la catégorie",
-      validators: [{ name: 'required' }]
-    }],
+    controls: [
+      {
+        name: "photo",
+        label: "Photo de la catégorie",
+        value: "",
+        type: "file",
+        placeholder: "Ajouter une photo pour la catégorie",
+        validators: [{ name: 'required' }],
+        uploadUrl: 'photo/product-category/upload'
+      },
+      {
+        name: "name",
+        label: "Nom de la catégorie",
+        value: "",
+        type: "text",
+        placeholder: "Entrer le nom de la catégorie",
+        validators: [{ name: 'required' }]
+      }],
     currentId: null
   }
 
@@ -31,6 +41,5 @@ export class ProductCategoryPageComponent {
       prop: "name"
     }]
 
-  constructor(public service: ProductCategoryService) {
-  }
+  constructor(public service: ProductCategoryService) { }
 }
